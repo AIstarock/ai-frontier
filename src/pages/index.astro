@@ -9,24 +9,26 @@ import { highlights } from '../data/highlights';
 const posts = (await getCollection('daily')).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
 const latest = posts[0];
 const dateStr = latest ? latest.data.date.toISOString().slice(0,10) : '';
+const headline = latest ? latest.data.title.replace(/^AI前沿 #\d+｜/, '') : '';
 ---
 <Base>
-  <div class="hero-banner">
-    <img src="/media/hero-home.png" width="1440" height="480" alt="AI前沿 · 深空终端" />
-  </div>
-
-  <div class="w" style="padding-top:16px">
-    <AdSlot name="banner" />
-  </div>
-
-  <section class="hero" style="margin-top:8px">
-    <div class="w grid layout-2" style="align-items:center">
-      <div>
+  <section class="hero-home">
+    <img
+      class="hero-home__bg"
+      src="/media/hero-home.jpg"
+      width="1440"
+      height="810"
+      alt=""
+      fetchpriority="high"
+    />
+    <div class="hero-home__mask" aria-hidden="true"></div>
+    <div class="hero-home__inner">
+      <div class="hero-home__copy">
         {latest && (
           <>
-            <span class="tag">AI前沿 #{String(latest.data.issue).padStart(3,'0')} · 今日日报</span>
-            <h1 style="font-size:clamp(28px,4vw,40px)">{latest.data.title.replace(/^AI前沿 #\d+｜/,'')}</h1>
-            <p class="mut" style="font-size:18px">每天 5 分钟，看完全球 AI 最重要的新闻、新工具和测评。</p>
+            <span class="tag">AI前沿 #{String(latest.data.issue).padStart(3, '0')} · 今日日报</span>
+            <h1>{headline}</h1>
+            <p class="hero-home__hook">每天 5 分钟，看完全球 AI 最重要的新闻、新工具和测评。</p>
             <a class="btn" href={`/daily/${latest.id}`}>阅读今日日报 →</a>
           </>
         )}
@@ -34,6 +36,10 @@ const dateStr = latest ? latest.data.date.toISOString().slice(0,10) : '';
       <SubscribeBox />
     </div>
   </section>
+
+  <div class="w" style="padding-top:16px">
+    <AdSlot name="banner" />
+  </div>
 
   <div class="w grid layout-2" style="margin-top:36px">
     <div class="grid" style="gap:14px">

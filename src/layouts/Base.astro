@@ -86,10 +86,78 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     }
     .card a { text-decoration: none; color: var(--color-text); }
     .card a:hover { color: var(--color-accent); }
-    .hero {
-      background: linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 14%, transparent), color-mix(in srgb, var(--color-accent) 10%, transparent));
+    .hero-home {
+      position: relative;
+      min-height: 520px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
       border-bottom: 1px solid var(--color-border);
-      padding: 56px 0;
+    }
+    .hero-home__bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-home__mask {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(11, 15, 26, 0.92) 0%, rgba(11, 15, 26, 0.75) 45%, rgba(11, 15, 26, 0.35) 100%),
+        linear-gradient(0deg, rgba(11, 15, 26, 0.85), transparent 55%);
+    }
+    .hero-home__inner {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 64px 32px 56px;
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 32px;
+      align-items: end;
+      width: 100%;
+    }
+    .hero-home__copy .tag {
+      font-size: 13px;
+      font-weight: 700;
+      padding: 4px 12px;
+      background: #7c5cff22;
+    }
+    .hero-home__copy h1 {
+      font-size: clamp(28px, 3.5vw, 40px);
+      line-height: 1.25;
+      margin: 14px 0 12px;
+      font-weight: 900;
+      max-width: 18em;
+      color: #fff;
+    }
+    .hero-home__hook {
+      font-size: 18px;
+      color: var(--color-muted);
+      margin: 0 0 22px;
+      max-width: 28em;
+    }
+    .hero-home__copy .btn {
+      padding: 12px 22px;
+      border-radius: 10px;
+      font-weight: 700;
+    }
+    .hero-home .subscribe {
+      margin: 0;
+      background: rgba(18, 24, 41, 0.88);
+      backdrop-filter: blur(8px);
+    }
+    @media (max-width: 860px) {
+      .hero-home { min-height: 0; align-items: stretch; }
+      .hero-home__inner {
+        grid-template-columns: 1fr;
+        padding: 40px 16px 36px;
+        align-items: start;
+      }
+      .hero-home__bg { object-position: 70% center; }
     }
     .grid { display: grid; gap: 24px; }
     .layout-2 { grid-template-columns: 2fr 1fr; }
@@ -103,7 +171,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       .layout-2, .layout-daily { grid-template-columns: 1fr; }
       .site-header nav a { margin-left: 12px; font-size: 14px; }
       .logo img { height: 40px; }
-      .hero { padding: 36px 0; }
     }
     /* Ads */
     .ad {
@@ -187,8 +254,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     a.news-card-link:hover h3 { color: var(--color-accent); }
 
     /* Media */
-    .hero-banner { width: 100%; display: block; border-radius: 0; border-bottom: 1px solid var(--color-border); }
-    .hero-banner img { width: 100%; height: auto; max-height: 480px; object-fit: cover; display: block; }
     .media-thumb { width: 100%; border-radius: 10px; display: block; aspect-ratio: 16/9; object-fit: cover; background: var(--color-card); }
     .news-card .media-thumb { margin-bottom: 12px; }
     .tool-cover { width: 100%; aspect-ratio: 8/5; object-fit: cover; border-radius: 10px 10px 0 0; display: block; }

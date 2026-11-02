@@ -1,0 +1,4 @@
+# Cloudflare Pages: build with `npm run build`, publish `./dist` (full Astro static output).
+name = "ai-frontier"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "./dist"

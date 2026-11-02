@@ -39,7 +39,7 @@ const others = (await getCollection('daily')).filter(p=>p.id!==post.id).sort((a,
       <!-- 要闻配图条：对应前 4 条 -->
       <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin:20px 0">
         {highlights.slice(0,4).map((h,i) => (
-          <figure class="card" style="padding:10px;margin:0">
+          <figure id={`highlight-${i + 1}`} class="card" style="padding:10px;margin:0;scroll-margin-top:96px">
             <img class="media-thumb" src={h.image} width="640" height="360" alt="" loading="lazy" />
             <figcaption style="font-size:13px;margin-top:8px"><span class="tag">{h.tag}</span>{h.title}</figcaption>
           </figure>

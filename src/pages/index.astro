@@ -40,13 +40,16 @@ const dateStr = latest ? latest.data.date.toISOString().slice(0,10) : '';
       <h2>今日要闻</h2>
       {highlights.map((n, i) => (
         <>
-          <article class="card news-card">
+          <a
+            class="card news-card news-card-link"
+            href={latest ? `/daily/${latest.id}#highlight-${i + 1}` : '/daily'}
+          >
             <img class="media-thumb" src={n.image} width="640" height="360" alt="" loading="lazy" />
             <span class="tag">{n.tag}</span>
             <span class="mut" style="font-size:13px">{dateStr}</span>
             <h3>{n.title}</h3>
             <div class="mut" style="font-size:14px">{n.summary}</div>
-          </article>
+          </a>
           {i === 3 && <AdSlot name="feed" />}
         </>
       ))}

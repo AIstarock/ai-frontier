@@ -1,0 +1,11 @@
+{
+  "slots": {
+    "banner": null,
+    "feed": null,
+    "presented-by": null,
+    "inline": null,
+    "sidebar": null,
+    "sidebar-sticky": null,
+    "newsletter": null
+  }
+}

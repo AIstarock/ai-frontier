@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import AdSlot from '../components/AdSlot.astro';
+import SubscribeBox from '../components/SubscribeBox.astro';
+import VideoEmbed from '../components/VideoEmbed.astro';
+import { getCollection } from 'astro:content';
+import { tools } from '../data/tools';
+import { highlights } from '../data/highlights';
+const posts = (await getCollection('daily')).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
+const latest = posts[0];
+const dateStr = latest ? latest.data.date.toISOString().slice(0,10) : '';
+---
+<Base>
+  <div class="hero-banner">
+    <img src="/media/hero-home.png" width="1440" height="480" alt="AI前沿 · 深空终端" />
+  </div>
+
+  <div class="w" style="padding-top:16px">
+    <AdSlot name="banner" />
+  </div>
+
+  <section class="hero" style="margin-top:8px">
+    <div class="w grid layout-2" style="align-items:center">
+      <div>
+        {latest && (
+          <>
+            <span class="tag">AI前沿 #{String(latest.data.issue).padStart(3,'0')} · 今日日报</span>
+            <h1 style="font-size:clamp(28px,4vw,40px)">{latest.data.title.replace(/^AI前沿 #\d+｜/,'')}</h1>
+            <p class="mut" style="font-size:18px">每天 5 分钟，看完全球 AI 最重要的新闻、新工具和测评。</p>
+            <a class="btn" href={`/daily/${latest.id}`}>阅读今日日报 →</a>
+          </>
+        )}
+      </div>
+      <SubscribeBox />
+    </div>
+  </section>
+
+  <div class="w grid layout-2" style="margin-top:36px">
+    <div class="grid" style="gap:14px">
+      <h2>今日要闻</h2>
+      {highlights.map((n, i) => (
+        <>
+          <article class="card news-card">
+            <img class="media-thumb" src={n.image} width="640" height="360" alt="" loading="lazy" />
+            <span class="tag">{n.tag}</span>
+            <span class="mut" style="font-size:13px">{dateStr}</span>
+            <h3>{n.title}</h3>
+            <div class="mut" style="font-size:14px">{n.summary}</div>
+          </article>
+          {i === 3 && <AdSlot name="feed" />}
+        </>
+      ))}
+      <div class="card">
+        <h3 style="margin-top:0">本期速览视频</h3>
+        <VideoEmbed provider="youtube" id="dQw4w9WgXcQ" title="示例：AI前沿创刊速览（YouTube 嵌入演示）" />
+      </div>
+    </div>
+
+    <aside class="grid" style="align-content:start">
+      <div class="card">
+        <h3 style="margin-top:0">今日工具</h3>
+        {tools.slice(0,4).map(t => (
+          <div class="tool-row">
+            <img class="tool-icon" src={t.cover} width="40" height="40" alt="" style="object-fit:cover" />
+            <div>
+              <b>{t.name}</b>
+              <div class="mut" style="font-size:13px">{t.cat}</div>
+            </div>
+          </div>
+        ))}
+        <p style="margin:12px 0 0"><a href="/tools">全部工具 →</a></p>
+      </div>
+      <AdSlot name="sidebar" />
+      <div class="card">
+        <h3 style="margin-top:0">热门测评</h3>
+        <p class="mut">· 四款国产大模型编码能力横评<br/>· AI 视频生成工具 2026 Q4 对比</p>
+      </div>
+      {posts.length > 0 && (
+        <div class="card">
+          <h3 style="margin-top:0">往期日报</h3>
+          <ul style="padding-left:1.1em;margin:0">
+            {posts.map(p => (
+              <li><a href={`/daily/${p.id}`}>{p.data.title}</a></li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </aside>
+  </div>
+</Base>

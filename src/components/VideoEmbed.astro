@@ -1,0 +1,45 @@
+---
+interface Props {
+  provider?: 'youtube' | 'bilibili';
+  id?: string;
+  title?: string;
+  poster?: string;
+}
+const {
+  provider = 'youtube',
+  id = provider === 'youtube' ? 'dQw4w9WgXcQ' : 'BV1GJ411x7h7',
+  title = '示例视频',
+  poster,
+} = Astro.props;
+const defaultPoster = provider === 'youtube' ? '/media/video-poster-yt.png' : '/media/video-poster-bili.png';
+const posterSrc = poster ?? defaultPoster;
+const embedSrc =
+  provider === 'youtube'
+    ? `https://www.youtube.com/embed/${id}`
+    : `https://player.bilibili.com/player.html?bvid=${id}&high_quality=1&autoplay=0`;
+const uid = `ve-${provider}-${id}`.replace(/[^a-zA-Z0-9_-]/g, '');
+---
+<figure class="video-embed" data-provider={provider}>
+  <div class="video-frame" id={uid}>
+    <button type="button" class="video-poster" aria-label={`播放：${title}`} data-embed={embedSrc} data-title={title}>
+      <img src={posterSrc} alt="" width="1280" height="720" loading="lazy" />
+      <span class="play-btn" aria-hidden="true">
+        <svg viewBox="0 0 64 64" width="64" height="64"><circle cx="32" cy="32" r="30" fill="#7C5CFF" opacity="0.92"/><polygon points="26,18 50,32 26,46" fill="#fff"/></svg>
+      </span>
+      <span class="video-badge">{provider === 'youtube' ? 'YouTube' : 'Bilibili'}</span>
+    </button>
+  </div>
+  <figcaption class="mut">{title}</figcaption>
+</figure>
+<script>
+  document.querySelectorAll('.video-poster').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const el = btn;
+      const src = el.getAttribute('data-embed');
+      const title = el.getAttribute('data-title') || 'video';
+      const frame = el.closest('.video-frame');
+      if (!frame || !src) return;
+      frame.innerHTML = `<iframe src="${src}" title="${title}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>`;
+    });
+  });
+</script>

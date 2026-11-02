@@ -1,0 +1,49 @@
+---
+import sponsors from '../data/sponsors.json';
+interface Props {
+  name?: string;
+  label?: string;
+  size?: string;
+  sticky?: boolean;
+}
+const {
+  name = 'inline',
+  label,
+  size,
+  sticky = false,
+} = Astro.props;
+const s = (sponsors.slots as Record<string, { name: string; text: string; url: string } | null>)[name];
+const defaults: Record<string, { label: string; size: string }> = {
+  banner: { label: '顶部横幅', size: '1200×90' },
+  feed: { label: '信息流原生', size: '与卡片同宽' },
+  'presented-by': { label: '冠名赞助', size: '正文同宽 · 每期 1 席' },
+  inline: { label: '文中原生', size: '正文同宽' },
+  sidebar: { label: '侧栏', size: '300×250' },
+  'sidebar-sticky': { label: '侧栏（吸顶）', size: '300×600' },
+  newsletter: { label: 'Newsletter 赞助', size: '头图' },
+};
+const meta = defaults[name] ?? { label: '广告位', size: '' };
+const title = label ?? meta.label;
+const sizeText = size ?? meta.size;
+const sizeClass =
+  name === 'banner' ? 'ad--banner' :
+  name === 'sidebar' ? 'ad--sidebar' :
+  name === 'sidebar-sticky' ? 'ad--sidebar-sticky' :
+  name === 'feed' || name === 'inline' || name === 'presented-by' ? 'ad--full' : '';
+---
+<aside class:list={['ad', sizeClass, sticky && 'ad--sticky']} data-slot={name}>
+  <b class="ad-label">广告位 · {title}</b>
+  <div class="ad-body">
+    <div>
+      <small>赞助 / Sponsored</small>
+      {s ? (
+        <a href={s.url} rel="sponsored noopener" target="_blank">
+          <strong>{s.name}</strong> — {s.text}
+        </a>
+      ) : (
+        <div class="ad-placeholder">广告位招租：品牌名 + 一句话介绍 + 链接。 <a href="/sponsor">了解合作 →</a></div>
+      )}
+    </div>
+    {sizeText && <small class="ad-size">{sizeText}</small>}
+  </div>
+</aside>

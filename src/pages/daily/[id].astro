@@ -1,0 +1,79 @@
+---
+import Base from '../../layouts/Base.astro';
+import AdSlot from '../../components/AdSlot.astro';
+import SubscribeBox from '../../components/SubscribeBox.astro';
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import { getCollection, render } from 'astro:content';
+import { highlights } from '../../data/highlights';
+export async function getStaticPaths(){
+  return (await getCollection('daily')).map(p=>({params:{id:p.id},props:{post:p}}));
+}
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const toc = highlights.map((h,i)=>({ n: String(i+1).padStart(2,'0'), title: h.title }));
+const others = (await getCollection('daily')).filter(p=>p.id!==post.id).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
+---
+<Base title={post.data.title} description={post.data.description}>
+  <div class="w grid layout-daily" style="margin-top:40px;margin-bottom:40px">
+    <aside class="toc-aside mut" style="position:sticky;top:96px;align-self:start">
+      <b>本期目录</b>
+      {toc.map(t => <div>{t.n} {t.title.slice(0,12)}…</div>)}
+    </aside>
+
+    <article>
+      <span class="tag">日报</span>
+      <span class="mut">{post.data.date.toISOString().slice(0,10)} · 阅读约 5 分钟</span>
+      <h1 style="font-size:clamp(26px,3.5vw,34px)">{post.data.title}</h1>
+
+      <AdSlot name="presented-by" />
+
+      <img class="daily-illust" src="/media/daily-illust.png" width="800" height="420" alt="AI前沿日报插图" />
+
+      <div class="card" style="margin:20px 0">
+        <b>⚡ 30 秒速览</b>
+        <ul style="margin:6px 0">
+          {highlights.slice(0,3).map(h => <li>{h.title}</li>)}
+        </ul>
+      </div>
+
+      <!-- 要闻配图条：对应前 4 条 -->
+      <div class="grid" style="grid-template-columns:1fr 1fr;gap:12px;margin:20px 0">
+        {highlights.slice(0,4).map((h,i) => (
+          <figure class="card" style="padding:10px;margin:0">
+            <img class="media-thumb" src={h.image} width="640" height="360" alt="" loading="lazy" />
+            <figcaption style="font-size:13px;margin-top:8px"><span class="tag">{h.tag}</span>{h.title}</figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <AdSlot name="inline" label="文中原生（第 2 条后）" />
+
+      <div class="daily-body">
+        <Content />
+      </div>
+
+      <div class="card" style="margin-top:28px">
+        <h3 style="margin-top:0">本期相关视频</h3>
+        <VideoEmbed provider="youtube" id="dQw4w9WgXcQ" title="示例：OpenAI / Agent 速览（YouTube）" />
+        <VideoEmbed provider="bilibili" id="BV1GJ411x7h7" title="示例：AI 工具演示（Bilibili）" />
+      </div>
+
+      <div class="card" style="margin-top:24px">
+        <h3 style="margin-top:0">喜欢这期？免费订阅，每天早 8 点送达</h3>
+        <SubscribeBox />
+      </div>
+    </article>
+
+    <aside class="grid" style="align-content:start">
+      <AdSlot name="sidebar-sticky" sticky />
+      <div class="card">
+        <h3 style="margin-top:0">往期日报</h3>
+        {others.length === 0 ? <p class="mut">更多即将上线…</p> : (
+          <ul style="padding-left:1.1em;margin:0">
+            {others.map(p => <li><a href={`/daily/${p.id}`}>{p.data.title}</a></li>)}
+          </ul>
+        )}
+      </div>
+    </aside>
+  </div>
+</Base>

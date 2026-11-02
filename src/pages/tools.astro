@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import AdSlot from '../components/AdSlot.astro';
+import { tools } from '../data/tools';
+---
+<Base title="AI 工具库 · AI前沿">
+  <div class="w" style="padding:36px 0">
+    <h1>AI 工具库</h1>
+    <p class="mut">本期推荐与持续收录的 AI 工具。封面图可后续替换为产品截图。</p>
+    <div style="margin:16px 0"><AdSlot name="sidebar" /></div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:12px">
+      {tools.map(t => (
+        <div class="card tool-card">
+          <img class="tool-cover" src={t.cover} width="640" height="400" alt="" loading="lazy" />
+          <div class="tool-body">
+            <small class="tag">{t.cat}</small>
+            <h3 style="margin:8px 0">{t.name}</h3>
+            <p class="mut" style="font-size:15px">{t.desc}</p>
+            <small>来源：<a href={t.src} rel="noopener" target="_blank">{t.src}</a></small>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Base>

@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('daily')).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
+---
+<Base title="每日摘要 · AI前沿">
+  <div class="w" style="padding:36px 0">
+    <h1>每日摘要</h1>
+    <p class="mut">每天 5 分钟，看完全球 AI 最重要的新闻、新工具和测评。</p>
+    <div class="grid" style="gap:16px;margin-top:20px">
+      {posts.map(p => (
+        <article class="card news-card">
+          <img class="media-thumb" src="/media/daily-illust.png" width="800" height="420" alt="" loading="lazy" />
+          <small class="mut">#{String(p.data.issue).padStart(3,'0')} · {p.data.date.toISOString().slice(0,10)}</small>
+          <h2 style="font-size:22px"><a href={`/daily/${p.id}`}>{p.data.title}</a></h2>
+          <p class="mut">{p.data.description}</p>
+        </article>
+      ))}
+    </div>
+  </div>
+</Base>

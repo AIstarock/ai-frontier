@@ -62,7 +62,38 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       height: 76px; gap: 16px;
     }
     .logo img { display: block; height: 48px; width: auto; }
-    .site-header nav { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 0; }
+    .nav-toggle {
+      display: none;
+      flex-shrink: 0;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      margin-left: auto;
+      background: transparent;
+      border: 1px solid var(--color-border);
+      border-radius: 8px;
+      cursor: pointer;
+      color: var(--color-text);
+    }
+    .nav-toggle-bar {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: currentColor;
+      border-radius: 1px;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    .site-header.is-nav-open .nav-toggle-bar:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .site-header.is-nav-open .nav-toggle-bar:nth-child(2) { opacity: 0; }
+    .site-header.is-nav-open .nav-toggle-bar:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+    .site-header nav { display: flex; align-items: center; flex-wrap: nowrap; gap: 0; }
     .site-header nav a {
       margin-left: 22px; color: var(--color-text); text-decoration: none; font-weight: 500; font-size: 15px;
     }
@@ -101,8 +132,42 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     @media (max-width: 860px) {
       .w { padding: 0 16px; }
       .layout-2, .layout-daily { grid-template-columns: 1fr; }
-      .site-header nav a { margin-left: 12px; font-size: 14px; }
-      .logo img { height: 40px; }
+      .site-header .w {
+        position: relative;
+        height: auto;
+        min-height: 64px;
+        flex-wrap: nowrap;
+      }
+      .logo { flex-shrink: 1; min-width: 0; }
+      .logo img { height: 40px; max-width: min(180px, 52vw); }
+      .nav-toggle { display: flex; flex-direction: column; }
+      .site-header nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        align-items: stretch;
+        background: var(--color-bg);
+        border-bottom: 1px solid var(--color-border);
+        padding: 8px 16px 16px;
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+        z-index: 50;
+      }
+      .site-header.is-nav-open nav { display: flex; }
+      .site-header nav a {
+        margin-left: 0;
+        padding: 12px 4px;
+        font-size: 16px;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .site-header nav a:last-child { border-bottom: none; }
+      .site-header nav a.btn {
+        margin-top: 8px;
+        text-align: center;
+        border-bottom: none;
+      }
       .hero { padding: 36px 0; }
     }
     /* Ads */
@@ -227,7 +292,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
       <a class="logo" href="/" aria-label="AI前沿">
         <img src="/logo.svg" width="220" height="48" alt="AI前沿 AI Frontier" />
       </a>
-      <nav>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="打开导航菜单">
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+        <span class="nav-toggle-bar" aria-hidden="true"></span>
+      </button>
+      <nav id="site-nav">
         <a href="/daily">日报</a>
         <a href="/tools">工具库</a>
         <a href="/sponsor">赞助</a>
@@ -240,5 +310,31 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <footer class="site-footer">
     <div class="w">© 2026 AI前沿 AI Frontier · 所有新闻附原文链接，赞助内容均标注「赞助 / Sponsored」。</div>
   </footer>
+  <script is:inline>
+    (function () {
+      var header = document.querySelector('.site-header');
+      var toggle = document.querySelector('.nav-toggle');
+      var nav = document.getElementById('site-nav');
+      if (!header || !toggle || !nav) return;
+
+      function setOpen(open) {
+        header.classList.toggle('is-nav-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        toggle.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
+      }
+
+      toggle.addEventListener('click', function () {
+        setOpen(!header.classList.contains('is-nav-open'));
+      });
+
+      nav.addEventListener('click', function (e) {
+        if (e.target.closest('a')) setOpen(false);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') setOpen(false);
+      });
+    })();
+  </script>
 </body>
 </html>

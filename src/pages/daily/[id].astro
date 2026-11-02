@@ -2,7 +2,6 @@
 import Base from '../../layouts/Base.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import SubscribeBox from '../../components/SubscribeBox.astro';
-import VideoEmbed from '../../components/VideoEmbed.astro';
 import { getCollection, render } from 'astro:content';
 import { highlights } from '../../data/highlights';
 export async function getStaticPaths(){
@@ -50,12 +49,6 @@ const others = (await getCollection('daily')).filter(p=>p.id!==post.id).sort((a,
 
       <div class="daily-body">
         <Content />
-      </div>
-
-      <div class="card" style="margin-top:28px">
-        <h3 style="margin-top:0">本期相关视频</h3>
-        <VideoEmbed provider="youtube" id="dQw4w9WgXcQ" title="示例：OpenAI / Agent 速览（YouTube）" />
-        <VideoEmbed provider="bilibili" id="BV1GJ411x7h7" title="示例：AI 工具演示（Bilibili）" />
       </div>
 
       <div class="card" style="margin-top:24px">

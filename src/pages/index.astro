@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import AdSlot from '../components/AdSlot.astro';
 import SubscribeBox from '../components/SubscribeBox.astro';
-import VideoEmbed from '../components/VideoEmbed.astro';
 import { getCollection } from 'astro:content';
 import { tools } from '../data/tools';
 import { highlights } from '../data/highlights';
@@ -53,10 +52,6 @@ const dateStr = latest ? latest.data.date.toISOString().slice(0,10) : '';
           {i === 3 && <AdSlot name="feed" />}
         </>
       ))}
-      <div class="card">
-        <h3 style="margin-top:0">本期速览视频</h3>
-        <VideoEmbed provider="youtube" id="dQw4w9WgXcQ" title="示例：AI前沿创刊速览（YouTube 嵌入演示）" />
-      </div>
     </div>
 
     <aside class="grid" style="align-content:start">

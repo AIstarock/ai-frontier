@@ -1,7 +1,7 @@
 export const highlights = [
-  { tag: '模型', title: 'ChatGPT 与 Codex 共用额度，Plus 用户可用量翻倍', summary: '12 月起 Plus/Pro/Business 的 ChatGPT 与 Codex 共用 token 额度，Work Agent 并入主应用。', image: '/media/news-1.png' },
-  { tag: 'Agent', title: 'DeepSeek 开源超级 Agent 原型，支持百步级任务', summary: 'DeepSeek Harness 介绍跨会话、并行、常在线 Agent，并以 MIT 开源盯仓自动干活原型。', image: '/media/news-2.png' },
-  { tag: '产业', title: '阿美 26 亿美元入股 HUMAIN，中东算力再加码', summary: '沙特阿美以约 26 亿美元现金加算力资产换取 HUMAIN 49% 股份，PIF 仍持 51%。', image: '/media/news-3.png' },
-  { tag: '工具', title: 'Mage-VL-Cowork：4B 模型 OSWorld 达 66.0%', summary: '微软发布 4B 电脑操作模型，GUI/终端可用，Apache 2.0；分数为厂商自测。', image: '/media/news-4.png' },
-  { tag: '开源', title: 'Surya OCR 2.5：689M 参数刷新 OmniParseBench', summary: 'Datalab 开源 OCR 在 OmniParseBench 得分 85.9。', image: '/media/news-1.png' },
+  { tag: '产品', title: 'ChatGPT 与 Codex 自 12 月起共用用量额度', summary: 'Plus/Pro/Business 的 ChatGPT 与 Codex 将共享按 token 计量的额度；Instant chat 不计入。', image: '/media/news-1.png' },
+  { tag: 'Agent', title: 'DeepSeek 开源超级 Agent 研究原型（MIT）', summary: '面向单个 GitHub 仓库的编程智能体原型：被授权后可自动执行任务并以 PR 等形式回复。', image: '/media/news-2.png' },
+  { tag: '产业', title: '阿美完成入股 HUMAIN 49%，注资约 26 亿美元', summary: '阿美以约 99 亿里亚尔现金及 AI/算力资产取得 49% 股权，PIF 保留 51%。', image: '/media/news-3.png' },
+  { tag: '工具', title: 'Mage-VL-Cowork：4B 模型 OSWorld 达 66.0%', summary: '微软发布 4B 电脑操作模型，GUI 与终端合一，Apache-2.0；分数为官方自报。', image: '/media/news-4.png' },
+  { tag: '落地', title: 'Apple 智能登陆中国，部分体验接入千问', summary: '首批功能 11 月 4 日起 Beta，计划 12 月随系统更新正式推出；不含下一代 Siri AI。', image: '/media/news-1.png' },
 ];

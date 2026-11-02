@@ -1,29 +1,71 @@
 ---
 import Base from '../layouts/Base.astro';
-import AdSlot from '../components/AdSlot.astro';
+const contactEmail = 'ads@ai-frontier.example';
 ---
-<Base title="赞助合作 · AI前沿">
-  <div class="w" style="padding:36px 0">
-    <h1>赞助与广告合作</h1>
-    <p>《AI前沿》面向关注 AI 新闻、工具与测评的中文读者。所有赞助内容均明确标注「赞助 / Sponsored」，链接带 rel="sponsored"。</p>
-    <img class="daily-illust" src="/media/daily-illust.png" width="800" height="420" alt="" />
-    <h2>广告位规格（方向 B）</h2>
-    <ol>
-      <li>首页顶部横幅 1200×90</li>
-      <li>首页信息流原生（第 4 条后，与卡片同宽）</li>
-      <li>首页侧栏 300×250</li>
-      <li>日报冠名赞助（标题下，正文同宽，每期 1 席）</li>
-      <li>日报文中原生（第 2 条后）</li>
-      <li>日报侧栏吸顶 300×600</li>
-    </ol>
-    <p>另有：测评定制（标注赞助）、工具库收录加速、Newsletter 头图赞助。</p>
-    <h2>数据</h2>
-    <p class="note">网站刚上线，读者数据（UV/PV、订阅数、打开率）积累后每月更新。早期提供「创始赞助商」优惠。</p>
-    <h2>广告位预览</h2>
-    <AdSlot name="banner" />
-    <AdSlot name="inline" />
-    <AdSlot name="sidebar" />
-    <h2>联系</h2>
-    <p>商务合作询盘邮箱即将公布，可先浏览上方广告位规格。</p>
+<Base
+  title="赞助合作 · AI前沿"
+  description="Presented-by 冠名与日报原生 inline 赞助；Banner / 侧栏招租位二期开放。所有赞助内容均标注 Sponsored。"
+>
+  <div class="w sponsor-hero">
+    <span class="sponsor-kicker">Sponsor · 商务合作</span>
+    <h1 class="sponsor-lead">把品牌放进每天 5 分钟的 AI 精读里</h1>
+    <p class="sponsor-sub">
+      MVP 主售两档：<strong style="color:var(--color-text)">Presented-by 冠名</strong> 与
+      <strong style="color:var(--color-text)">原生 inline</strong>。编辑内容与赞助内容清晰分隔，一律标注「赞助 / Sponsored」。
+    </p>
+    <div class="sponsor-cta-row">
+      <a class="btn" href={`mailto:${contactEmail}?subject=AI前沿%20赞助合作`}>商务合作 {contactEmail}</a>
+    </div>
+  </div>
+
+  <div class="w" style="padding-bottom:48px">
+    <p class="sponsor-section-title">MVP 主售套餐</p>
+    <div class="sponsor-mvp-grid">
+      <section class="sponsor-package">
+        <span class="sponsor-package__badge">MVP · P0</span>
+        <h3>Presented-by 冠名</h3>
+        <p>Logo 与品牌名出现在日报标题区下方，全宽展示，每期 1 席。</p>
+        <p>位置：日报标题下 · 正文同宽 · 必须标注「赞助 / Sponsored」。</p>
+        <div class="sponsor-preview" aria-label="冠名赞助示意">
+          <span class="sponsor-preview__tag">示意预览</span>
+          <div class="sponsor-preview__sponsored">赞助 / SPONSORED</div>
+          <div class="sponsor-preview__line">本期由 <span class="mut">某某 AI 云</span> 冠名赞助</div>
+        </div>
+      </section>
+
+      <section class="sponsor-package">
+        <span class="sponsor-package__badge">MVP · P0</span>
+        <h3>原生 inline</h3>
+        <p>穿插在要闻列表或正文节奏中的原生赞助块，与阅读流同宽。</p>
+        <p>位置：约第 2 条要闻后 · 全宽 · 强制 Sponsored 标签 · 文案风格与要闻统一。</p>
+        <div class="sponsor-preview" aria-label="文中原生赞助示意">
+          <span class="sponsor-preview__tag">示意预览</span>
+          <div class="sponsor-preview__sponsored">SPONSORED · 赞助</div>
+          <div class="sponsor-preview__line">【赞助】GPU 云：H200 按小时计费</div>
+        </div>
+      </section>
+    </div>
+
+    <div class="sponsor-phase2">
+      <p class="sponsor-phase2__title">招租位 · 二期主推（非 MVP 主售）</p>
+      <div class="sponsor-phase2-grid">
+        <div class="sponsor-slot-empty">
+          <span class="sponsor-slot-empty__label">招租 · 二期主推</span>
+          <p><strong style="color:var(--color-text)">顶部 Banner</strong> · 1200×90 · 首页标题区下</p>
+          <p style="margin-top:8px"><a href={`mailto:${contactEmail}`}>{contactEmail}</a></p>
+        </div>
+        <div class="sponsor-slot-empty">
+          <span class="sponsor-slot-empty__label">招租 · 二期主推</span>
+          <p><strong style="color:var(--color-text)">信息流 / 侧栏</strong> · 第 4 条后（300×250）或侧栏 300×600</p>
+          <p style="margin-top:8px"><a href={`mailto:${contactEmail}`}>{contactEmail}</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sponsor-disclosure">
+      <b>披露与原则</b> · 所有付费内容必须标注「赞助 / Sponsored」，链接使用 <code>rel="sponsored"</code>。
+      编辑精选与商业合作视觉分隔；未售出招租位不得伪装成已售硬广。询盘：
+      <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+    </div>
   </div>
 </Base>

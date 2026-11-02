@@ -1,0 +1,41 @@
+---
+import type { SourceVerification } from '../types/source';
+
+interface Props {
+  url?: string;
+  label?: string;
+  verification?: SourceVerification;
+}
+
+const { url, label, verification } = Astro.props;
+
+const hasUrl = Boolean(url && label);
+const badgeLabel =
+  verification === 'official'
+    ? '官方'
+    : verification === 'in-house'
+      ? '本站实测'
+      : verification === 'third-party'
+        ? '第三方'
+        : null;
+---
+
+{hasUrl && (
+  <div class="source-row">
+    <span class="source-row__label">来源</span>
+    <a
+      class="source-chip"
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="source-chip__text">{label}</span>
+      <span class="source-chip__icon" aria-hidden="true">↗</span>
+    </a>
+    {badgeLabel && (
+      <span class:list={['trust-badge', verification && `trust-badge--${verification}`]}>
+        {badgeLabel}
+      </span>
+    )}
+  </div>
+)}

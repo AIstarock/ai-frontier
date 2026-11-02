@@ -5,7 +5,17 @@ const daily = defineCollection({
   schema: z.object({
     title: z.string(), issue: z.number(), date: z.coerce.date(),
     description: z.string(), tags: z.array(z.string()).default([]),
-    sources: z.array(z.string()).default([]), sponsored: z.boolean().default(false),
+    sources: z.array(z.string()).default([]),
+    itemSources: z
+      .array(
+        z.object({
+          url: z.string().url(),
+          label: z.string(),
+          verification: z.enum(['official', 'third-party', 'in-house']),
+        }),
+      )
+      .default([]),
+    sponsored: z.boolean().default(false),
   }),
 });
 export const collections = { daily };

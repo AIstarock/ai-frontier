@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import AdSlot from '../../components/AdSlot.astro';
 import SubscribeBox from '../../components/SubscribeBox.astro';
+import SourceChip from '../../components/SourceChip.astro';
 import { getCollection, render } from 'astro:content';
 import { highlights } from '../../data/highlights';
 export async function getStaticPaths(){
@@ -40,7 +41,12 @@ const others = (await getCollection('daily')).filter(p=>p.id!==post.id).sort((a,
         {highlights.slice(0,4).map((h,i) => (
           <figure id={`highlight-${i + 1}`} class="card" style="padding:10px;margin:0;scroll-margin-top:96px">
             <img class="media-thumb" src={h.image} width="640" height="360" alt="" loading="lazy" />
-            <figcaption style="font-size:13px;margin-top:8px"><span class="tag">{h.tag}</span>{h.title}</figcaption>
+            <figcaption style="font-size:13px;margin-top:8px">
+              <span class="tag">{h.tag}</span>{h.title}
+            </figcaption>
+            {h.source && (
+              <SourceChip url={h.source.url} label={h.source.label} verification={h.source.verification} />
+            )}
           </figure>
         ))}
       </div>

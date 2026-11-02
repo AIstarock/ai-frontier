@@ -281,6 +281,223 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     .toc-aside a { color: var(--color-muted); text-decoration: none; display: block; margin: 6px 0; font-size: 14px; }
     .toc-aside a:hover { color: var(--color-accent); }
     .toc-aside b { color: var(--color-text); }
+
+    /* Source chip (Direction B) */
+    .source-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px 12px;
+      margin: 14px 0 0;
+    }
+    .source-row__label {
+      font-size: 13px;
+      color: var(--color-muted);
+      font-weight: 500;
+    }
+    .source-chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 14px;
+      border-radius: 999px;
+      border: 1px solid #7C5CFF55;
+      background: #7C5CFF14;
+      color: #C4B5FF;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none !important;
+      line-height: 1.2;
+      transition: color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .source-chip:hover {
+      color: #fff;
+      border-color: var(--color-primary);
+    }
+    .source-chip:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 45%, transparent);
+      color: #fff;
+    }
+    .source-chip__icon {
+      font-size: 13px;
+      opacity: 0.85;
+    }
+    .trust-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+    .trust-badge--official {
+      background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+      color: var(--color-accent);
+      border: 1px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
+    }
+    .trust-badge--third-party {
+      background: color-mix(in srgb, var(--color-muted) 18%, transparent);
+      color: var(--color-muted);
+      border: 1px solid color-mix(in srgb, var(--color-muted) 40%, transparent);
+    }
+    .trust-badge--in-house {
+      background: color-mix(in srgb, var(--color-ad) 18%, transparent);
+      color: var(--color-ad);
+      border: 1px solid color-mix(in srgb, var(--color-ad) 45%, transparent);
+    }
+    .daily-body :global(.source-row) { margin-top: 12px; }
+
+    /* Sponsor page */
+    .sponsor-hero {
+      padding: 48px 0 32px;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .sponsor-kicker {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--color-ad);
+      background: color-mix(in srgb, var(--color-ad) 12%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-ad) 35%, transparent);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 16px;
+    }
+    .sponsor-lead {
+      font-size: clamp(26px, 3.5vw, 36px);
+      font-weight: 800;
+      max-width: 720px;
+      line-height: 1.25;
+    }
+    .sponsor-sub {
+      max-width: 680px;
+      color: var(--color-muted);
+      font-size: 17px;
+      margin-top: 14px;
+    }
+    .sponsor-cta-row { margin-top: 24px; }
+    .sponsor-cta-row .btn { padding: 12px 22px; font-size: 15px; }
+    .sponsor-section-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-muted);
+      letter-spacing: 0.04em;
+      margin: 40px 0 16px;
+    }
+    .sponsor-mvp-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+    }
+    @media (max-width: 860px) {
+      .sponsor-mvp-grid { grid-template-columns: 1fr; }
+    }
+    .sponsor-package {
+      background: var(--color-card);
+      border: 1.5px solid color-mix(in srgb, var(--color-primary) 55%, var(--color-border));
+      border-radius: 16px;
+      padding: 22px 22px 20px;
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary) 12%, transparent);
+    }
+    .sponsor-package__badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--color-accent);
+      background: color-mix(in srgb, var(--color-accent) 14%, transparent);
+      border: 1px solid color-mix(in srgb, var(--color-accent) 40%, transparent);
+      padding: 2px 8px;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+    .sponsor-package h3 { font-size: 20px; margin: 0 0 8px; }
+    .sponsor-package p { margin: 0.45em 0; color: var(--color-muted); font-size: 15px; }
+    .sponsor-preview {
+      margin-top: 16px;
+      padding: 14px;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      background: color-mix(in srgb, var(--color-bg) 60%, var(--color-card));
+    }
+    .sponsor-preview__tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #111;
+      background: var(--color-ad);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .sponsor-preview__sponsored {
+      font-size: 12px;
+      color: var(--color-muted);
+      margin-bottom: 8px;
+    }
+    .sponsor-preview__line {
+      font-size: 14px;
+      font-weight: 600;
+    }
+    .sponsor-phase2 {
+      margin-top: 28px;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1.5px dashed color-mix(in srgb, var(--color-ad) 65%, var(--color-border));
+      background: color-mix(in srgb, var(--color-ad-bg) 80%, transparent);
+    }
+    .sponsor-phase2__title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--color-ad);
+      margin: 0 0 14px;
+    }
+    .sponsor-phase2-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    @media (max-width: 860px) {
+      .sponsor-phase2-grid { grid-template-columns: 1fr; }
+    }
+    .sponsor-slot-empty {
+      padding: 16px;
+      border-radius: 10px;
+      border: 1px dashed color-mix(in srgb, var(--color-ad) 50%, var(--color-border));
+      background: var(--color-bg);
+    }
+    .sponsor-slot-empty__label {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      color: #111;
+      background: color-mix(in srgb, var(--color-ad) 85%, #fff);
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 8px;
+    }
+    .sponsor-slot-empty p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--color-muted);
+    }
+    .sponsor-disclosure {
+      margin-top: 36px;
+      padding: 18px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+      background: var(--color-card);
+      font-size: 15px;
+      color: var(--color-muted);
+    }
+    .sponsor-disclosure b { color: var(--color-text); }
+    .sponsor-disclosure a { color: var(--color-accent); }
   </style>
 </head>
 <body>

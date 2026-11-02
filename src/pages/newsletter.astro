@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
 import SubscribeBox from '../components/SubscribeBox.astro';
-import VideoEmbed from '../components/VideoEmbed.astro';
 import { getCollection } from 'astro:content';
 const posts = (await getCollection('daily')).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
 ---
@@ -13,7 +12,7 @@ const posts = (await getCollection('daily')).sort((a,b)=>b.data.date.valueOf()-a
     <SubscribeBox />
     <div class="card" style="margin-top:24px">
       <h3 style="margin-top:0">订阅后看什么？</h3>
-      <VideoEmbed provider="bilibili" id="BV1GJ411x7h7" title="示例：Newsletter 介绍（Bilibili）" />
+      <p class="mut">每日精选 AI 要闻、工具与测评，5 分钟读完。视频栏目即将上线。</p>
     </div>
     <h2>往期</h2>
     <ul>{posts.map(p=><li><a href={`/daily/${p.id}`}>{p.data.title}</a></li>)}</ul>

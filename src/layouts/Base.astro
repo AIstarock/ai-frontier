@@ -9,6 +9,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <meta name="robots" content="index, follow" />
   <link rel="canonical" href={canonical} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
@@ -173,6 +174,17 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
     main.page { min-height: 60vh; }
     .news-card { padding: 18px 22px; }
     .news-card h3 { font-size: 19px; margin: 6px 0; font-weight: 700; }
+    a.news-card-link {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    a.news-card-link:hover {
+      border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border));
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-primary) 25%, transparent);
+    }
+    a.news-card-link:hover h3 { color: var(--color-accent); }
 
     /* Media */
     .hero-banner { width: 100%; display: block; border-radius: 0; border-bottom: 1px solid var(--color-border); }
